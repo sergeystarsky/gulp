@@ -1,4 +1,18 @@
 # gulp
 Установка Gulp
-npm i gulp -g  /Установка gulp  в папке глобально, т.е. сборщик может использоваться в любом месте системы/
-npm install -g npm /Обновляем gulp до последней версии/
+npm i gulp -g  //Установка gulp  в папке глобально, т.е. сборщик может использоваться в любом месте системы
+npm install -g npm //Обновляем gulp до последней версии
+!!! В пути пакета Gulp не должно быть русскоязычных папок!!!
+npm i gulp --save-dev // сохраняем пакет и версию в файл package.json
+npm init //Делаем стартовый файл для нашего проекта
+
+package.jsone
+name: project
+version: 1
+desription: My first project
+main: index.js  // не меняем
+autor: serg
+license: "ISC"
+
+После заполнения получаем файл package.json
+
