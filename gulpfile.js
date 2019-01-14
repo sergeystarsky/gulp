@@ -10,3 +10,4 @@ var gulp = require ('gulp'), // require - подключение модуля к
 //return gulp.src('app/sass/**/*.sass') выбираем все файлы, которые имеют расширение sass в директории sass
 //return gulp.src('!app/sass/main.sass') данный файл исключается из выборки
 //return gulp.src('[!app/sass/main.sass', 'app/sass/**/*.sass]') через массив выбираем все файлы sass кроме main.sass
+//return gulp.src('app/sass/*.+(scss|sass)') выбираем все scss и все sass файлы в дериктории sass 
