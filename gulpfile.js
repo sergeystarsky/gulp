@@ -1,6 +1,6 @@
 var 	gulp = require ('gulp'), // require - подключение модуля который мы установили через nmp install
     	sass = require ('gulp-sass'), //поключаем препроцессинг sass
-	browserSync  = require('browser-sync'), //слежение за обновлениями
+	browserSync  = require('browser-sync'), //автомотическое обновление всех браузеров при сохранении
     	concat       = require('gulp-concat'),
 	uglify       = require('gulp-uglifyjs'), // минимизируем js файлы
 	cssnano      = require('gulp-cssnano'),  // минимизируем css файлы
