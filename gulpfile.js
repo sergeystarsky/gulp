@@ -1,6 +1,17 @@
 var 	gulp = require ('gulp'), // require - подключение модуля который мы установили через nmp install
     	sass = require ('gulp-sass'), //поключаем препроцессинг sass
 	browserSync  = require('browser-sync'), //слежение за обновлениями
+    	concat       = require('gulp-concat'),
+	uglify       = require('gulp-uglifyjs'), // минимизируем js файлы
+	cssnano      = require('gulp-cssnano'),  // минимизируем css файлы
+	rename       = require('gulp-rename'),
+	del 	     = require('del'),
+	imagemin     = require('gulp-imagemin'),
+	pngquant     = require('imagemin-pngquant'),
+	cache        = require('gulp-cache'),
+	autoprefixer = require('gulp-autoprefixer'),
+	plumber	     = require('gulp-plumber'),
+	notify	     = require('gulp-notify');
     
     
     
@@ -15,9 +26,9 @@ var 	gulp = require ('gulp'), // require - подключение модуля �
 //return gulp.src('[!app/sass/main.sass', 'app/sass/**/*.sass]') через массив выбираем все файлы sass кроме main.sass
 //return gulp.src('app/sass/*.+(scss|sass)') выбираем все scss и все sass файлы в дериктории sass 
 
-//процесс слижения	
+//процесс слежения	
 gulp.task('watch', ['browser-sync', 'css-libs', 'scripts'],  function() {//сначала стартует 'browser-sync', 'css-libs' (в обязаетльном порядке выполняет sass), далее watch, scripts запускаем до запуска сервера
-	gulp.watch('app/sass/**/*.sass', ['sass']); //следим за sass файлами во всех поддерикториях sass
+	gulp.watch('app/sass/**/*.sass', ['sass']); //если проиходят измения в файлах, мы выполняем таск sass, указываем его в квадратных скобках 
 	gulp.watch('app/*.html', browserSync.reload); // следим за html файлами
 	gulp.watch('app/js/**/*.js', browserSync.reload);// следим за js во всех поддерикториях
 });
