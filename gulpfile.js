@@ -34,7 +34,7 @@ gulp.task('watch', ['browser-sync', 'css-libs', 'scripts'],  function() {//сн�
 	gulp.watch('app/js/**/*.js', browserSync.reload);// следим за js во всех поддерикториях
 });
 
-
+//При запуске выдает url для использования при просмотре например на мобильно устройстве
 gulp.task('browser-sync', function() {
 	browserSync({
 		server: {
@@ -42,4 +42,4 @@ gulp.task('browser-sync', function() {
 		},
 		notify: false //убираем лого при перезагрузке
 	});
-});
+});    
