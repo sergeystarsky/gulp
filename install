@@ -21,6 +21,7 @@ license: "ISC"
    app(css, fonts, img, js, sass, index.html) -папка исходников проекта
    Создаем папку
    dist - готовый продукт, папка продакшена
+   libs - устанавливаем туда библиотеки (jQwery, magnific-popup)
    gulpfile - подключаем модули через, task
                 
 Устанавливаем плагин sass
@@ -33,3 +34,9 @@ npm i gulp-sass --save-dev //Сохраняем пакет и версию в pa
 Слежение за файлами и автоматическое обновление browsersync
 
 npm i browser-sync  --save-dev (устанавливаем в проект, не глобально в данном случае)
+
+Для установки библиотек в папке libs установим bower
+
+npm i -g bower
+
+для работы bower необходим установленный Git
