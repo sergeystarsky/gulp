@@ -30,8 +30,8 @@ var 	gulp 	     = require ('gulp'), // require - подключение моду
 //процесс слежения, параметры с скобках выполнятся в приоритете	
 gulp.task('watch', ['browser-sync', 'css-libs', 'scripts'],  function() {//сначала стартует 'browser-sync', 'css-libs' (в обязаетльном порядке выполняет sass), далее watch, scripts запускаем до запуска сервера
 	gulp.watch('app/sass/**/*.sass', ['sass']); //если просиходят изменения в файлах, мы выполняем таск sass, указываем его в квадратных скобках, через запятую 
-	gulp.watch('app/*.html', browserSync.reload); // следим за html файлами
-	gulp.watch('app/js/**/*.js', browserSync.reload);// следим за js во всех поддерикториях
+	gulp.watch('app/*.html', browserSync.reload); // следим за html файлами, при изменении и сохранении файлов обновляется браузер
+	gulp.watch('app/js/**/*.js', browserSync.reload);// следим за js во всех поддерикториях,при изменении и сохранении файлов обновляется браузер
 });
 
 //При запуске выдает url для использования при просмотре например на мобильно устройстве
