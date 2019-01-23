@@ -1,8 +1,8 @@
 var 	gulp 	     = require ('gulp'), // require - подключение модуля который мы установили через nmp install
     	sass	     = require ('gulp-sass'), //поключаем препроцессинг sass
 	browserSync  = require('browser-sync'), //автоматическое обновление всех браузеров при сохранении
-    	concat       = require('gulp-concat'),
-	uglify       = require('gulp-uglifyjs'), // минимизируем js файлы
+    	concat       = require('gulp-concat'),   //сборка скриптов
+	uglify       = require('gulp-uglifyjs'), // минимизируем, сжимаем js файлы
 	cssnano      = require('gulp-cssnano'),  // минимизируем css файлы
 	rename       = require('gulp-rename'),
 	del 	     = require('del'),
@@ -34,6 +34,17 @@ gulp.task('watch', ['browser-sync', 'css-libs', 'scripts'],  function() {//сн�
 	gulp.watch('app/js/**/*.js', browserSync.reload);// следим за js во всех поддерикториях,при изменении и сохранении файлов обновляется браузер
 });
 
+//task для сжатия скриптов
+gulp.task('scripts', function() {
+	return gulp.src([
+	'app/libs/jquery/dist/jquery.min.js',
+	'app/libs/magnific-popup/dist/jquery.magnific-popup.min.js'
+	]) //подключаем уже минифицированные файлы, перебираем в массиве
+  	.pipe(plumber())   //ловим ошибки
+	.pipe(concat('libs.min.js')) //конкатинируем файлы, собираем в кучу в файле libs.min.js
+	.pipe(uglify())               //сжимаем файлы
+	.pipe(gulp.dest('app/js'));   //выгружаем результат в данную деррикторию
+});
 //При запуске выдает url для использования при просмотре например на мобильно устройстве
 gulp.task('browser-sync', function() {
 	browserSync({
