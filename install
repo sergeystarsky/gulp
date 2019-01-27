@@ -23,6 +23,7 @@ license: "ISC"
    dist - готовый продукт, папка продакшена
    libs - устанавливаем туда библиотеки (jQwery, magnific-popup)
    gulpfile - подключаем модули через, task
+   файл libs.sass - туда импортируем библиотеки
                 
 Устанавливаем плагин sass
 npm i gulp-sass --save-dev //Сохраняем пакет и версию в package.json
@@ -46,3 +47,7 @@ npm i -g bower
 npm i gulp-concat gulp-uglifyjs --save-dev  
 
 (--save -dev) сохраняет версии пакетов
+
+Сжатие файла css
+
+npm i gulp-cssnano gulp-rename --save-dev
