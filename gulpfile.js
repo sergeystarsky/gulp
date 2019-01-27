@@ -4,7 +4,7 @@ var 	gulp 	     = require ('gulp'), // require - подключение моду
     	concat       = require('gulp-concat'),   //сборка скриптов
 	uglify       = require('gulp-uglifyjs'), // минимизируем, сжимаем js файлы
 	cssnano      = require('gulp-cssnano'),  // минимизируем css файлы
-	rename       = require('gulp-rename'),
+	rename       = require('gulp-rename'),   //переименование файла
 	del 	     = require('del'),
 	imagemin     = require('gulp-imagemin'),
 	pngquant     = require('imagemin-pngquant'),
@@ -45,6 +45,16 @@ gulp.task('scripts', function() {
 	.pipe(uglify())               //сжимаем файлы
 	.pipe(gulp.dest('app/js'));   //выгружаем результат в данную деррикторию
 });
+
+gulp.task('css-libs', ['sass'], function() {  //запускаем sass в приоритете(поочередность потока) , сжимаем libs
+	return gulp.src('app/css/libs.css')   // выбираем файл для сжатия
+	.pipe(plumber())
+	.pipe(cssnano())                       //сжимаем наш файл
+	.pipe(rename({suffix: '.min'}))        //добавляем к файлу суффикс min
+	.pipe(gulp.dest('app/css'));           //выгружаем в app/css
+	
+});
+
 //При запуске выдает url для использования при просмотре например на мобильно устройстве
 gulp.task('browser-sync', function() {
 	browserSync({
