@@ -64,3 +64,26 @@ gulp.task('browser-sync', function() {
 		notify: false //убираем лого при перезагрузке
 	});
 });    
+
+//Сборка
+gulp.task('build', ['clean', 'img', 'sass', 'scripts'], function(){
+
+	var buildCss = gulp.src([   //Создаем переменную build
+		'app/css/main.css',  //указываем файлы, которые импортируем
+		'app/css/libs.min.css', //указываем файлы, которые импортируем
+	])
+	.pipe(plumber())
+	.pipe(gulp.dest('dist/css'));  // переносим наши файлы в папку css
+
+	var buildFonts = gulp.src('app/fonts/**/*')//новая перменная, берем все файлы из деректории
+		.pipe(gulp.dest ('dist/fonts'));  // переносим в папку
+
+
+	var buildJs =gulp.src('app/js/**/*')
+		.pipe(gulp.dest('dist/js'));
+
+	var buildHtml = gulp.src('app/*.html')
+		.pipe(gulp.dest('dist'));
+
+
+});
