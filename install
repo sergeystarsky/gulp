@@ -51,3 +51,7 @@ npm i gulp-concat gulp-uglifyjs --save-dev
 Сжатие файла css
 
 npm i gulp-cssnano gulp-rename --save-dev
+
+Очистка папок 
+
+npm i del --save-dev
