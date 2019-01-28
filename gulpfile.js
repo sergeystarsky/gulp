@@ -6,9 +6,9 @@ var 	gulp 	     = require ('gulp'), // require - подключение моду
 	cssnano      = require('gulp-cssnano'),  // минимизируем css файлы
 	rename       = require('gulp-rename'),   //переименование файла
 	del 	     = require('del'),     //удаляем ненужные файлы в папке dist
-	imagemin     = require('gulp-imagemin'),
-	pngquant     = require('imagemin-pngquant'),
-	cache        = require('gulp-cache'),
+	imagemin     = require('gulp-imagemin'), //минимизируем svg
+	pngquant     = require('imagemin-pngquant'),//минимизируем png
+	cache        = require('gulp-cache'), // кэшируем картинки
 	autoprefixer = require('gulp-autoprefixer'),
 	plumber	     = require('gulp-plumber'),
 	notify	     = require('gulp-notify');
@@ -57,11 +57,11 @@ gulp.task('browser-sync', function() {
 		notify: false //убираем лого при перезагрузке
 	});
 });    
+
 //чистим папку dist
 gulp.task('clean', function() {
 	return del.sync('dist'); //синхронизируется и удаляется папка dist
 });
-
 
 gulp.task('img', function(){
 	return gulp.src('app/img/**/*') //возвращаем gulp.src берем все изображения  из папка gulp.src
@@ -71,20 +71,16 @@ gulp.task('img', function(){
 		progressive: true,
 		svgoPlugins: [{removeViewBox: false}], //для работы с svg
 		une: [pngquant()] //для работы с png
-	})))
+	}))) //не забываем добвать скобочку, кошда пишем cashe 
 	.pipe(gulp.dest('dist/img')); //все выгружаем в dist/img
 });
+
 //процесс слежения, параметры с скобках выполнятся в приоритете	
 gulp.task('watch', ['browser-sync', 'css-libs', 'scripts'],  function() {//сначала стартует 'browser-sync', 'css-libs' (в обязаетльном порядке выполняет sass), далее watch, scripts запускаем до запуска сервера
 	gulp.watch('app/sass/**/*.sass', ['sass']); //если просиходят изменения в файлах, мы выполняем таск sass, указываем его в квадратных скобках, через запятую 
 	gulp.watch('app/*.html', browserSync.reload); // следим за html файлами, при изменении и сохранении файлов обновляется браузер
 	gulp.watch('app/js/**/*.js', browserSync.reload);// следим за js во всех поддерикториях,при изменении и сохранении файлов обновляется браузер
 });
-
-
-
-
-
 
 //Сборка, папку build необходимо удалять в процессе сборки, таск img обрабатывает изображения в процессе сборки, выполняем sass(перед сборкой компилируем sass, scripts собираем вместе все скрипты библиотек )
 gulp.task('build', ['clean', 'img', 'sass', 'scripts'], function(){
@@ -96,7 +92,7 @@ gulp.task('build', ['clean', 'img', 'sass', 'scripts'], function(){
 	.pipe(plumber())
 	.pipe(gulp.dest('dist/css'));  // переносим наши файлы в папку css
 
-	var buildFonts = gulp.src('app/fonts/**/*')//новая перменная, берем все файлы из деректории
+	var buildFonts = gulp.src('app/fonts/**/*')//новая перменная, берем все файлы из директории
 		.pipe(gulp.dest ('dist/fonts'));  // переносим в папку
 
 
