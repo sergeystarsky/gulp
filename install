@@ -59,3 +59,7 @@ npm i del --save-dev
 Работа с изображениями
 
 npm i --save-dev gulp-imagemin imagemin-pngquant
+
+Кэшируем картинки
+
+npm i gulp-cache --save-dev
