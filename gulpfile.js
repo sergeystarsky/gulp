@@ -27,13 +27,6 @@ var 	gulp 	     = require ('gulp'), // require - подключение моду
 //return gulp.src('[!app/sass/main.sass', 'app/sass/**/*.sass]') через массив выбираем все файлы sass кроме main.sass
 //return gulp.src('app/sass/*.+(scss|sass)') выбираем все scss и все sass файлы в дериктории sass 
 
-//процесс слежения, параметры с скобках выполнятся в приоритете	
-gulp.task('watch', ['browser-sync', 'css-libs', 'scripts'],  function() {//сначала стартует 'browser-sync', 'css-libs' (в обязаетльном порядке выполняет sass), далее watch, scripts запускаем до запуска сервера
-	gulp.watch('app/sass/**/*.sass', ['sass']); //если просиходят изменения в файлах, мы выполняем таск sass, указываем его в квадратных скобках, через запятую 
-	gulp.watch('app/*.html', browserSync.reload); // следим за html файлами, при изменении и сохранении файлов обновляется браузер
-	gulp.watch('app/js/**/*.js', browserSync.reload);// следим за js во всех поддерикториях,при изменении и сохранении файлов обновляется браузер
-});
-
 //task для сжатия скриптов
 gulp.task('scripts', function() {
 	return gulp.src([
@@ -69,7 +62,31 @@ gulp.task('clean', function() {
 	return del.sync('dist'); //синхронизируется и удаляется папка dist
 });
 
-//Сборка, папку build необходимо удалять в процессе сборки, выполняем sass(перед сборкой компилируем sass, scripts собираем вместе все скрипты библиотек )
+
+gulp.task('img', function(){
+	return gulp.src('app/img/**/*') //возвращаем gulp.src берем все изображения  из папка gulp.src
+	.pipe(plumber())
+	.pipe(cache(imagemin({     //Кешируем наше изображение
+		interlaced: true,  //значения указанные на сайте
+		progressive: true,
+		svgoPlugins: [{removeViewBox: false}], //для работы с svg
+		une: [pngquant()] //для работы с png
+	})))
+	.pipe(gulp.dest('dist/img')); //все выгружаем в dist/img
+});
+//процесс слежения, параметры с скобках выполнятся в приоритете	
+gulp.task('watch', ['browser-sync', 'css-libs', 'scripts'],  function() {//сначала стартует 'browser-sync', 'css-libs' (в обязаетльном порядке выполняет sass), далее watch, scripts запускаем до запуска сервера
+	gulp.watch('app/sass/**/*.sass', ['sass']); //если просиходят изменения в файлах, мы выполняем таск sass, указываем его в квадратных скобках, через запятую 
+	gulp.watch('app/*.html', browserSync.reload); // следим за html файлами, при изменении и сохранении файлов обновляется браузер
+	gulp.watch('app/js/**/*.js', browserSync.reload);// следим за js во всех поддерикториях,при изменении и сохранении файлов обновляется браузер
+});
+
+
+
+
+
+
+//Сборка, папку build необходимо удалять в процессе сборки, таск img обрабатывает изображения в процессе сборки, выполняем sass(перед сборкой компилируем sass, scripts собираем вместе все скрипты библиотек )
 gulp.task('build', ['clean', 'img', 'sass', 'scripts'], function(){
 
 	var buildCss = gulp.src([   //Создаем переменную build
