@@ -63,10 +63,14 @@ gulp.task('clean', function() {
 	return del.sync('dist'); //синхронизируется и удаляется папка dist
 });
 
+//Таск отчистки кэша ( в случае переноса папки img минификация не будет работать, поэтому чистим кэш)
+gulp.task('clear', function() { 
+	return cache.clearAll();
+});
 gulp.task('img', function(){
 	return gulp.src('app/img/**/*') //возвращаем gulp.src берем все изображения  из папка gulp.src
 	.pipe(plumber())
-	.pipe(cache(imagemin({     //Кешируем наше изображение
+	.pipe(cache(imagemin({     //Кэшируем наше изображение
 		interlaced: true,  //значения указанные на сайте
 		progressive: true,
 		svgoPlugins: [{removeViewBox: false}], //для работы с svg
