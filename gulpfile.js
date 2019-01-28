@@ -64,9 +64,11 @@ gulp.task('clean', function() {
 });
 
 //Таск отчистки кэша ( в случае переноса папки img минификация не будет работать, поэтому чистим кэш)
-gulp.task('clear', function() { 
+gulp.task('clear', function() {  // прописывается в ручную, делается обязательно
 	return cache.clearAll();
 });
+
+//минимизация изображений
 gulp.task('img', function(){
 	return gulp.src('app/img/**/*') //возвращаем gulp.src берем все изображения  из папка gulp.src
 	.pipe(plumber())
