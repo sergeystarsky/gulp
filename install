@@ -63,3 +63,7 @@ npm i --save-dev gulp-imagemin imagemin-pngquant
 Кэшируем картинки
 
 npm i gulp-cache --save-dev
+
+Установка вендорных префиксов
+npm i --save-dev gulp-autoprefixer
+
