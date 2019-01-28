@@ -5,7 +5,7 @@ var 	gulp 	     = require ('gulp'), // require - подключение моду
 	uglify       = require('gulp-uglifyjs'), // минимизируем, сжимаем js файлы
 	cssnano      = require('gulp-cssnano'),  // минимизируем css файлы
 	rename       = require('gulp-rename'),   //переименование файла
-	del 	     = require('del'),
+	del 	     = require('del'),     //удаляем ненужные файлы в папке dist
 	imagemin     = require('gulp-imagemin'),
 	pngquant     = require('imagemin-pngquant'),
 	cache        = require('gulp-cache'),
@@ -64,8 +64,12 @@ gulp.task('browser-sync', function() {
 		notify: false //убираем лого при перезагрузке
 	});
 });    
+//чистим папку dist
+gulp.task('clean', function() {
+	return del.sync('dist'); //синхронизируется и удаляется папка dist
+});
 
-//Сборка
+//Сборка, папку build необходимо удалять в процессе сборки, выполняем sass(перед сборкой компилируем sass, scripts собираем вместе все скрипты библиотек )
 gulp.task('build', ['clean', 'img', 'sass', 'scripts'], function(){
 
 	var buildCss = gulp.src([   //Создаем переменную build
