@@ -52,6 +52,10 @@ npm i gulp-concat gulp-uglifyjs --save-dev
 
 npm i gulp-cssnano gulp-rename --save-dev
 
-Очистка папок 
+Очистка папок  (таск clean)
 
 npm i del --save-dev
+
+Работа с изображениями
+
+npm i --save-dev gulp-imagemin imagemin-pngquant
