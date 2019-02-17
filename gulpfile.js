@@ -9,15 +9,16 @@ var 	gulp 	     = require ('gulp'), // require - подключение моду
 	imagemin     = require('gulp-imagemin'), //минимизируем svg
 	pngquant     = require('imagemin-pngquant'),//минимизируем png
 	cache        = require('gulp-cache'), // кэшируем картинки
-	autoprefixer = require('gulp-autoprefixer'),
-	plumber	     = require('gulp-plumber'),
-	notify	     = require('gulp-notify');
+	autoprefixer = require('gulp-autoprefixer'), // адаптируем код под разные версии браузеров, для корректного отображения
+	notify	     = require('gulp-notify');  //ловим ошибки
     
     
     
  gulp.task('sass', function() {           //выполняем таск sass который преобразует sass в css
  	return gulp.src('app/sass/main.sass')   //берем из папок файл main.sass
 	.pipe(sass())                           //выполняем таск sass  (преобразуем sass в css посредством gulp-sass) 
+	.on("error", notify.onError())          // ловим ошибки 
+	.pipe(autoprefixer(['last 15 versions', '>1%', 'ie 8', 'ie 7'], {cascade: true})) //создаем автопрефиксы, для различных версий браузеров
 	.pipe(gulp.dest('app/css'))             // выводим результат в файл css(если указать main.css, то будет создан еще один файл, что не верно)
 	.pipe(browserSync.reload({stream: true}))//	 
  });
@@ -33,22 +34,20 @@ gulp.task('scripts', function() {
 	'app/libs/jquery/dist/jquery.min.js',
 	'app/libs/magnific-popup/dist/jquery.magnific-popup.min.js'
 	]) //подключаем уже минифицированные файлы, перебираем в массиве
-  	.pipe(plumber())   //ловим ошибки
-	.pipe(concat('libs.min.js')) //конкатинируем файлы, собираем в кучу в файле libs.min.js
+  	.pipe(concat('libs.min.js')) //конкатинируем файлы, собираем в кучу в файле libs.min.js
 	.pipe(uglify())               //сжимаем файлы
 	.pipe(gulp.dest('app/js'));   //выгружаем результат в данную деррикторию
 });
 
 gulp.task('css-libs', ['sass'], function() {  //запускаем sass в приоритете(поочередность потока) , сжимаем libs
 	return gulp.src('app/css/libs.css')   // выбираем файл для сжатия
-	.pipe(plumber())
 	.pipe(cssnano())                       //сжимаем наш файл
 	.pipe(rename({suffix: '.min'}))        //добавляем к файлу суффикс min
 	.pipe(gulp.dest('app/css'));           //выгружаем в app/css
 	
 });
 
-//При запуске выдает url для использования при просмотре например на мобильно устройстве
+//При запуске выдает url для использования при просмотре например на мобильном устройстве
 gulp.task('browser-sync', function() {
 	browserSync({
 		server: {
@@ -71,7 +70,6 @@ gulp.task('clear', function() {  // прописывается в ручную, 
 //минимизация изображений
 gulp.task('img', function(){
 	return gulp.src('app/img/**/*') //возвращаем gulp.src берем все изображения  из папка gulp.src
-	.pipe(plumber())
 	.pipe(cache(imagemin({     //Кэшируем наше изображение
 		interlaced: true,  //значения указанные на сайте
 		progressive: true,
