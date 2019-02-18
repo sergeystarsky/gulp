@@ -67,3 +67,6 @@ npm i gulp-cache --save-dev
 Установка вендорных префиксов
 npm i --save-dev gulp-autoprefixer
 
+Ловим ошибки при помощи gulp-notify
+npm install --save-dev gulp-notify
+
