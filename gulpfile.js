@@ -31,8 +31,8 @@ var 	gulp 	     = require ('gulp'), // require - подключение моду
 //task для сжатия скриптов
 gulp.task('scripts', function() {
 	return gulp.src([
-	'app/libs/jquery/dist/jquery.min.js',
-	'app/libs/magnific-popup/dist/jquery.magnific-popup.min.js'
+	'app/libs/jquery/dest/jquery.min.js',
+	'app/libs/magnific-popup/dest/jquery.magnific-popup.min.js'
 	]) //подключаем уже минифицированные файлы, перебираем в массиве
   	.pipe(concat('libs.min.js')) //конкатинируем файлы, собираем в кучу в файле libs.min.js
 	.pipe(uglify())               //сжимаем файлы
