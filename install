@@ -67,6 +67,15 @@ npm i del --save-dev
 
 npm i --save-dev gulp-imagemin imagemin-pngquant
 
+При установке imagemin-pngquant возникла ошибка
+warn : pngquant pre-build test failed
+  info : compiling from source
+  Отсутсвует библиотека libpng-dev, это библиотеки нет для windows
+  
+  Решение:
+  Устанавливаем pngquant версии 2.0.0. 
+  npm install --save-dev pngquant --msvs_version=2013
+
 Кэшируем картинки
 
 npm i gulp-cache --save-dev
